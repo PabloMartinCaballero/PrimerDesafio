@@ -1,7 +1,12 @@
+    //Importo las promesas de FS
+    import fs from 'fs'
+
+
 
     class ProductManager {
         constructor(){
             this.products = [];
+            this.path 
         }
 
         getProduct(){
@@ -12,12 +17,15 @@
             let product = this.product.find(product => product.id == id)
 
             if(product){
+                let productos = fs.readFileSync('./productos.txt', 'utf-8')
+                console.log(productos)
+                fs.appendFileSync('./productos.txt', JSON.stringify(product))
                 return product
             } else {
                 console.log("No se encontro el producto")
             }
         }
-
+        
         addProduct(product) {
             if(this.products.find( prod => prod.code == product.code)){
                 return "Existing product"
@@ -30,7 +38,9 @@
             }
 
             
-        }
+        }  
+
+
 
     }
 
